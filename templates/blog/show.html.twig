@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<article>
+        <h2> {{ article.title  }}</h2>
+            
+        <div class="metadata">
+            Ecrit le {{ article.cretedAt | date('d/m/Y') }}  a {{ article.cretedAt | date('H:i') }}  dans la categorie Politique
+        </div>
+    
+        <div class="content">
+        <!--  article>h2{Titre de l'article}+div.metadata{Ecrit le 12/05/2018 a 23:47 dans la ctegorie politique}+div.content>img+(p>lorem15)*2+a.btn.btn-primary{ Lire la suite })*3 -->
+        <!-- une belle gymnatique avec EMMET AWT qui donne le script HTML suivant--> 
+        <img src="{{ article.image}}" alt = ""> 
+        {{article.content | raw }}           
+        <a href="" class="btn btn-primary">Lire la suite </a>    
+        </div>          
+</article>
+{% endblock %}
