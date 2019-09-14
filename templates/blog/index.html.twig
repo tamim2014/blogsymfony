@@ -4,23 +4,24 @@
 
 {% block body %}
 
-  <section class="articles">  
-    <article>
-            <h2> Titre de l'article</h2>
-                   
-            <div class="metadata">
-                Ecrit le 12/05/2019 a 23:47 dans la categorie Politique
-            </div>
-          
-            <div class="content">
-               <!--  article>h2{Titre de l'article}+div.metadata{Ecrit le 12/05/2018 a 23:47 dans la ctegorie politique}+div.content>img+(p>lorem15)*2+a.btn.btn-primary{ Lire la suite })*3 -->
-               <!-- une belle gymnatique avec EMMET AWT qui donne le script HTML suivant--> 
-               <img src="http://placehold.it/350x150" alt="">         
-               <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias perspiciatis animi autem, aperiam explicabo fugit.</p>
-               <p>Placeat et voluptatem aliquam unde doloribus error nisi dolores repudiandae, veritatis architecto labore, suscipit a?</p>         
-               <a href="" class="btn btn-primary">Lire la suite </a>    
-            </div>          
-    </article>
+  <section class="articles"> 
+    {%  for article in articles %} 
+        <article>
+                <h2> {{ article.title  }}</h2>
+                    
+                <div class="metadata">
+                    Ecrit le {{ article.cretedAt | date('d/m/Y') }}  a {{ article.cretedAt | date('H:i') }}  dans la categorie Politique
+                </div>
+            
+                <div class="content">
+                <!--  article>h2{Titre de l'article}+div.metadata{Ecrit le 12/05/2018 a 23:47 dans la ctegorie politique}+div.content>img+(p>lorem15)*2+a.btn.btn-primary{ Lire la suite })*3 -->
+                <!-- une belle gymnatique avec EMMET AWT qui donne le script HTML suivant--> 
+                <img src="{{ article.image}}" alt = ""> 
+                {{article.content | raw }}           
+                <a href="" class="btn btn-primary">Lire la suite </a>    
+                </div>          
+        </article>
+    {%  endfor %}
   </section>
 
 {% endblock %}

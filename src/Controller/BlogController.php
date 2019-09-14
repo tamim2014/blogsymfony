@@ -13,9 +13,16 @@ class BlogController extends AbstractController
      */
     public function index()
     {
-       
+        $repo = $this->getDoctrine()->getRepository(Article::class);
+        // find(12): charge l'article numero 12
+        // findOneByAuthor('Ali'): charge l'article ecrit par ali
+        // findByAuthor('Ali'): charge tous les article ecrit par Ali
+        //findAll(): charge tous les articles
+        $articles = $repo->findAll();
         return $this->render('blog/index.html.twig', [
-            'controller_name' => 'BlogController']);
+            'controller_name' => 'BlogController',
+            'articles' => $articles
+            ]);
     }
     /**
      * @Route("/", name="home")
