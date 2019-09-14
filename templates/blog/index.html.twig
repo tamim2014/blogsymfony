@@ -17,8 +17,8 @@
                 <!--  article>h2{Titre de l'article}+div.metadata{Ecrit le 12/05/2018 a 23:47 dans la ctegorie politique}+div.content>img+(p>lorem15)*2+a.btn.btn-primary{ Lire la suite })*3 -->
                 <!-- une belle gymnatique avec EMMET AWT qui donne le script HTML suivant--> 
                 <img src="{{ article.image}}" alt = ""> 
-                {{article.content | raw }}           
-                <a href="" class="btn btn-primary">Lire la suite </a>    
+                {{article.content | raw }}                          
+                <a href="{{ path( 'blog_show', {'id':article.id} ) }}" class="btn btn-primary">Lire la suite </a>     
                 </div>          
         </article>
     {%  endfor %}
