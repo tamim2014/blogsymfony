@@ -4,20 +4,18 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+
 use App\Entity\Article;
+use App\Repository\ArticleRepository;// permet l'injection de la dependance "Repository des articles"
 
 class BlogController extends AbstractController
 {
     /**
      * @Route("/blog", name="blog")
      */
-    public function index()
+    public function index(ArticleRepository $repo)
     {
-        $repo = $this->getDoctrine()->getRepository(Article::class);
-        // find(12): charge l'article numero 12
-        // findOneByAuthor('Ali'): charge l'article ecrit par ali
-        // findByAuthor('Ali'): charge tous les article ecrit par Ali
-        //findAll(): charge tous les articles
+        //$repo = $this->getDoctrine()->getRepository(Article::class);
         $articles = $repo->findAll();
         return $this->render('blog/index.html.twig', [
             'controller_name' => 'BlogController',
@@ -38,10 +36,10 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog/{id}", name="blog_show")
      */
-    public function show($id)
-    {
-        $repo = $this->getDoctrine()->getRepository(Article::class);
-        $article = $repo->find($id);
+    public function show(Article $article)
+    {    
+        //$repo = $this->getDoctrine()->getRepository(Article::class);  
+        //$article = $repo->find($id); ||||||| injection de dependance - voir le service contenair de symfony
         return $this->render('blog/show.html.twig', [
             'article' => $article
         ]);
