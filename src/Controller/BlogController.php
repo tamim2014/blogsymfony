@@ -5,8 +5,17 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
+use Symfony\Component\HttpFoundation\Request;
+
+
 use App\Entity\Article;
 use App\Repository\ArticleRepository;// permet l'injection de la dependance "Repository des articles"
+use App\Form\ArticleType;
 
 class BlogController extends AbstractController
 {
@@ -30,6 +39,34 @@ class BlogController extends AbstractController
         return $this->render('blog/home.html.twig',[
             'title'  => "Bienvenue ici les amis !",
             'age' => 31
+        ]);
+    }
+    /**
+     * @Route("/blog/new", name="blog_create")
+     * @Route("/blog/{id}/edit", name="blog_edit")
+     */
+    public function form(Article $article = null, Request $request, ObjectManager $manager) {
+        //$article = new Article();
+        if(!$article) {
+            $article = new Article();
+        }
+
+        $form = $this->createForm(ArticleType::class, $article);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid() ){
+            if(!$article->getId()){
+                $article->setCretedAt(new \DateTime());
+            }
+            $manager->persist($article);
+            $manager->flush();
+
+            return $this->redirectToRoute('blog_show', ['id'=> $article->getId()]);
+        }
+        return $this->render('blog/create.html.twig', [
+            'formArticle' => $form->createView(),
+            'editMode' => $article->getId() !== null
         ]);
     }
 
