@@ -41,6 +41,21 @@ class BlogController extends AbstractController
             'age' => 31
         ]);
     }
+    
+    /**
+     * @Route("/blog/listArticles", name="afficherListArticles" )
+     */
+    public function listArticles()
+    {
+                $repo2 = $this->getDoctrine()->getRepository(Article::class);
+                $articles = $repo2->findAll();
+                return $this->render('blog/liste-articles.html.twig', [
+                    'controller_name' => 'BlogController',
+                    'articles' => $articles
+                    ]);
+
+    }
+
     /**
      * @Route("/blog/new", name="blog_create")
      * @Route("/blog/{id}/edit", name="blog_edit")
@@ -64,10 +79,18 @@ class BlogController extends AbstractController
 
             return $this->redirectToRoute('blog_show', ['id'=> $article->getId()]);
         }
-        return $this->render('blog/create.html.twig', [
-            'formArticle' => $form->createView(),
-            'editMode' => $article->getId() !== null
-        ]);
+        if(!$article) {
+            return $this->render('blog/create.html.twig', [
+                'formArticle' => $form->createView(),
+                'editMode' => $article->getId() !== null
+            ]);
+        }else{
+            return $this->render('blog/edit.html.twig', [
+                'formArticle' => $form->createView(),
+                'editMode' => $article->getId() !== null
+            ]);
+
+        }
     }
 
     /**
@@ -81,6 +104,24 @@ class BlogController extends AbstractController
             'article' => $article
         ]);
     }
+
+    /**
+     * @Route("/supprimer/{id}", name="article_delet")
+     * @param Article $article
+     * @return
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function supprimerArticle(Article $article)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->remove($article);
+        $em->flush();
+        //return $this->redirectToRoute('afficherListArticles');
+        return $this->redirect($this->generateUrl("afficherListArticles"));
+    }
+
+
+
 
 }
 
