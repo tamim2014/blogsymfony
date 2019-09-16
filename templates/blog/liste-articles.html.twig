@@ -24,7 +24,7 @@
                 <td>{{ article.cretedAt | date('d/m/Y') }} </td>
                 <td>{{ article.title  }}</td>
                 <td><img src="{{ article.image}}" alt = "" width="50" height="35"></td>
-                <td><a href="#" class="btn btn-warning ">Delet comment </a>  </td>
+                <td><a href="{{ path( 'blog_show', {'id':article.id} ) }}" class="btn btn-warning ">Delet comment </a>  </td>
                 <td><a href="{{ path( 'article_delet', {'id':article.id} ) }}" class="btn btn-danger " onclick="return window.confirm(`Êtes vous sur de vouloir supprimer cet article ?!`)">Delet article </a>  </td> 
                 <td><a href="{{ path( 'blog_edit', {'id':article.id} ) }}" class="btn btn-primary ">Edit article </a>  </td>
               </tr>
