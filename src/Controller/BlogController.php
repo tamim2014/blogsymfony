@@ -104,6 +104,15 @@ class BlogController extends AbstractController
             'article' => $article
         ]);
     }
+    /**
+     * @Route("/blog_admin/{id}", name="blog_show_admin")
+     */
+    public function show_admin(Article $article)
+    {    
+        return $this->render('blog/show_admin.html.twig', [
+            'article' => $article
+        ]);
+    }
 
     /**
      * @Route("/supprimer/{id}", name="article_delet")

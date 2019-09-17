@@ -34,7 +34,7 @@
                 <td>{{ article.cretedAt | date('d/m/Y') }} </td>
                 <td>{{ article.title  }}</td>
                 <td><img src="{{ article.image}}" alt = "" width="50" height="35"></td>
-                <td><a href="{{ path( 'blog_show', {'id':article.id} ) }}"     style="font-size:24px; padding-left:20%; "><i class="material-icons">delete</i> </a>  </td>
+                <td><a href="{{ path( 'blog_show_admin', {'id':article.id} ) }}"     style="font-size:24px; padding-left:20%; "><i class="material-icons">delete</i> </a>  </td>
                 <td><a href="{{ path( 'article_delet', {'id':article.id} ) }}" style="font-size:24px; padding-left:20%; "  onclick="return window.confirm(`Êtes vous sur de vouloir supprimer cet article ?!`)"><i class="material-icons">delete</i>  </a>  </td> 
                 <td><a href="{{ path( 'blog_edit', {'id':article.id} ) }}"     style="font-size:24px; padding-left:20%; "> <i class="material-icons">edit</i> </a></td>
               </tr>
