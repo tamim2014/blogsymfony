@@ -18,12 +18,12 @@
                 <thead>
                   <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">DATE</th>
-                    <th scope="col">Titre</th>
-                    <th scope="col">IMAGE</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                    <th scope="col"> </th>
+                    <th scope="col" style="color:rgb(20, 4, 41);">DATE</th>
+                    <th scope="col" style="color:rgb(20, 4, 41);">TITRE</th>
+                    <th scope="col" style="color:rgb(20, 4, 41);">IMAGE</th>
+                    <th scope="col" style="color:rgb(57, 14, 114);">Delet comment</th>
+                    <th scope="col" style="color:rgb(57, 14, 114);">Delet article</th>
+                    <th scope="col" style="color:rgb(57, 14, 114);">Edit  article </th>
                   </tr>
                 </thead>
            {%  for article in articles %} 
@@ -33,9 +33,9 @@
                 <td>{{ article.cretedAt | date('d/m/Y') }} </td>
                 <td>{{ article.title  }}</td>
                 <td><img src="{{ article.image}}" alt = "" width="50" height="35"></td>
-                <td><a href="{{ path( 'blog_show', {'id':article.id} ) }}" class="btn btn-warning ">Delet comment </a>  </td>
-                <td><a href="{{ path( 'article_delet', {'id':article.id} ) }}" class="btn btn-danger " onclick="return window.confirm(`Êtes vous sur de vouloir supprimer cet article ?!`)">Delet article </a>  </td> 
-                <td><a href="{{ path( 'blog_edit', {'id':article.id} ) }}" class="btn btn-secondary ">Edit article </a>  </td>
+                <td><a href="{{ path( 'blog_show', {'id':article.id} ) }}"     style="font-size:24px; padding-left:20%; "><i class="material-icons">delete</i> </a>  </td>
+                <td><a href="{{ path( 'article_delet', {'id':article.id} ) }}" style="font-size:24px; padding-left:20%; "  onclick="return window.confirm(`Êtes vous sur de vouloir supprimer cet article ?!`)"><i class="material-icons">delete</i>  </a>  </td> 
+                <td><a href="{{ path( 'blog_edit', {'id':article.id} ) }}"     style="font-size:24px; padding-left:20%; "> <i class="material-icons">edit</i> </a></td>
               </tr>
              
             </tbody>
