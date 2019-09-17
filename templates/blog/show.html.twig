@@ -5,7 +5,7 @@
             <h2> {{ article.title  }}</h2>
                 
             <div class="metadata">
-                Ecrit le {{ article.cretedAt | date('d/m/Y') }}  a {{ article.cretedAt | date('H:i') }}  dans la categorie Politique
+                <small>Ecrit le &nbsp;&nbsp; <b>{{ article.cretedAt | date('d/m/Y') }}</b>  &agrave; <b>{{ article.cretedAt | date('H:i') }}</b> &nbsp;&nbsp;&nbsp; dans la cat&eacute;gorie <span style="color:midnightblue;"><b>&nbsp;&nbsp;&nbsp; {{article.category.title}}</b></span></small> 
             </div>
         
             <div class="content">
@@ -15,4 +15,19 @@
                 {{article.content | raw }}                            
             </div>          
     </article>
+    <!-- On ajoute les commentaire relatif a l'article | c'dingue !!! Merci Lior  -->
+    <section id = "commentaires" style = "margin-top:50px;">
+      {%  for comment in article.comments %}
+      <div class="comment">
+          <div class="row">
+              <div class="col-3">
+                  {{comment.author}} (<small>{{comment.createdAt | date('d/m/Y &agrave; H:i ')}}</small>)
+              </div>
+              <div class="col">
+                  {{comment.content | raw}}
+              </div>
+          </div>
+      </div>
+      {%  endfor %}
+    </section>
 {% endblock %}

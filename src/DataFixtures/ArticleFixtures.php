@@ -14,7 +14,7 @@ class ArticleFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-      $faker = \Faker\Factory::create('fr_FR');
+      $faker = \Faker\Factory::create('fr_FR'); // https://github.com/fzaninotto/Faker#fakerprovideruseragent
 
       // je fais 3 categorie fakees
       for($i = 1; $i <= 3; $i++){
