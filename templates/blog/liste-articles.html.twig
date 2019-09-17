@@ -3,6 +3,15 @@
 {% block title %}Hello {{controller_name }}!{% endblock %}
 
 {% block body %}
+  <section class="articles" style="margin-top:20px;"> 
+     <tbody>
+    <table class="table table-hover">
+  
+        <tr class="table-active">
+            <th scope="row" style="text-align:right; "><button type="button" class="btn btn-secondary"><a class="  nav-link " href="/blog/new" style="color:white;" onmouseover="this.style.color='#FFFF99' "; onmouseout="this.style.color='white';"><b>Ajouter un article</b></a></button></th>
+        </tr>  
+    </table>
+  </section>
 
   <section class="articles"> 
         <table class="table table-hover">
@@ -14,7 +23,7 @@
                     <th scope="col">IMAGE</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
-                    <th scope="col"></th>
+                    <th scope="col"> </th>
                   </tr>
                 </thead>
            {%  for article in articles %} 
@@ -26,7 +35,7 @@
                 <td><img src="{{ article.image}}" alt = "" width="50" height="35"></td>
                 <td><a href="{{ path( 'blog_show', {'id':article.id} ) }}" class="btn btn-warning ">Delet comment </a>  </td>
                 <td><a href="{{ path( 'article_delet', {'id':article.id} ) }}" class="btn btn-danger " onclick="return window.confirm(`Êtes vous sur de vouloir supprimer cet article ?!`)">Delet article </a>  </td> 
-                <td><a href="{{ path( 'blog_edit', {'id':article.id} ) }}" class="btn btn-primary ">Edit article </a>  </td>
+                <td><a href="{{ path( 'blog_edit', {'id':article.id} ) }}" class="btn btn-secondary ">Edit article </a>  </td>
               </tr>
              
             </tbody>
