@@ -10,7 +10,7 @@
                 <h2> {{ article.title  }}</h2>
                     
                 <div class="metadata">
-                    Ecrit le {{ article.cretedAt | date('d/m/Y') }}  a {{ article.cretedAt | date('H:i') }}  dans la categorie Politique
+                    Ecrit le {{ article.cretedAt | date('d/m/Y') }} &agrave; {{ article.cretedAt | date('H:i') }} dans la categorie <span style="color:midnightblue;"><b> {{article.category.title}}</b></span></small>
                 </div>
             
                 <div class="content">

@@ -12,10 +12,11 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 use Symfony\Component\HttpFoundation\Request;
 
-
-use App\Entity\Article;
 use App\Repository\ArticleRepository;// permet l'injection de la dependance "Repository des articles"
+use App\Entity\Article;
+use App\Entity\Comment;
 use App\Form\ArticleType;
+use App\Form\CommentType;
 
 class BlogController extends AbstractController
 {
@@ -40,8 +41,7 @@ class BlogController extends AbstractController
             'title'  => "Bienvenue ici les amis !",
             'age' => 31
         ]);
-    }
-    
+    }   
     /**
      * @Route("/blog/listArticles", name="afficherListArticles" )
      */
@@ -53,9 +53,7 @@ class BlogController extends AbstractController
                     'controller_name' => 'BlogController',
                     'articles' => $articles
                     ]);
-
     }
-
     /**
      * @Route("/blog/new", name="blog_create")
      * @Route("/blog/{id}/edit", name="blog_edit")
@@ -65,7 +63,6 @@ class BlogController extends AbstractController
         if(!$article) {
             $article = new Article();
         }
-
         $form = $this->createForm(ArticleType::class, $article);
 
         $form->handleRequest($request);
@@ -89,19 +86,30 @@ class BlogController extends AbstractController
                 'formArticle' => $form->createView(),
                 'editMode' => $article->getId() !== null
             ]);
-
         }
     }
 
     /**
      * @Route("/blog/{id}", name="blog_show")
      */
-    public function show(Article $article)
+    public function show(Article $article, Request $request, ObjectManager $manager)
     {    
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $comment->setCreatedAt(new \DateTime())
+                    ->setArticle($article);
+            $manager->persist($comment);
+            $manager->flush();
+
+            return $this->redirectToRoute('blog_show', ['id'=> $article->getId()]);
+        }
         //$repo = $this->getDoctrine()->getRepository(Article::class);  
         //$article = $repo->find($id); ||||||| injection de dependance - voir le service contenair de symfony
         return $this->render('blog/show.html.twig', [
-            'article' => $article
+            'article' => $article,
+            'commentForm' => $form->createView()
         ]);
     }
     /**
@@ -109,10 +117,13 @@ class BlogController extends AbstractController
      */
     public function show_admin(Article $article)
     {    
+       
         return $this->render('blog/show_admin.html.twig', [
             'article' => $article
+          
         ]);
     }
+
 
     /**
      * @Route("/supprimer/{id}", name="article_delet")
@@ -122,12 +133,35 @@ class BlogController extends AbstractController
      */
     public function supprimerArticle(Article $article)
     {
+        
         $em = $this->getDoctrine()->getEntityManager();
         $em->remove($article);
         $em->flush();
         //return $this->redirectToRoute('afficherListArticles');
         return $this->redirect($this->generateUrl("afficherListArticles"));
     }
+
+    /**
+     * @Route("/comment_delet/{id}", name="comment_delet")
+     * @param Article $article
+     * @param Comment $comment
+     * @return
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function supprimerComment(Article $article, Comment $comment)
+    {   
+       //1.Utiliser la mthd removeComment($comment)
+       //2. Voir la fin du tuto 4/4 et s'inspirer de l'ajout d1 commentaire fait par lior
+
+       // return $this->redirect($this->generateUrl("blog_show_admin"));
+
+       return $this->render('blog/show_admin.html.twig', [
+           'article' => $article,
+           'comments' => $comments
+           ]);
+    }
+
+
 
 
 

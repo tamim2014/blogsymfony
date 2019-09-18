@@ -17,33 +17,40 @@
     </article>
     
     <!-- On ajoute les commentaire relatif a l'article | c'dingue !!! Merci Lior  -->
-    <section id = "commentaires" style = "margin-top:50px;">
+    <section id = "commentaires" style = "margin-top:40px;">
+        
+      <small style="float:right;"><b></b> {{ article.comments | length }} Commentaires</b></small>
+      <hr style="padding-bottom:30px;">
       {%  for comment in article.comments %}
       <div class="comment">
           <div class="row">
-              <!--
-              <div class="col-3">
-                    {{comment.author}} (<small>{{comment.createdAt | date('d/m/Y &agrave; H:i ')}}</small>)
-              </div>
-              -->
-              <div class="col-3">
-                    <div class="card bg-light mb-3" style="max-width: 20rem;">
-                            <div class="card-header"> {{comment.author}}</div>
-                            <div class="card-body">
-                                <p class="card-text"><small>{{comment.createdAt | date('d/m/Y &agrave; H:i ')}}</small></p>
-                            </div>
-                    </div>            
+              <div class="col-3">                      
+                    {{comment.author}}
+                    <span class="card-text"><small>{{comment.createdAt | date('d/m/Y')}} &agrave; {{ article.cretedAt | date('H:i') }}</small></span>                            
               </div>
               
               <div class="col">
-                    <div class="card bg-light mb-3" style="max-width: 50rem;">                      
-                            <div class="card-body">
-                            <p class="card-text">{{comment.content | raw}}</p>
-                            </div>  
-                    </div> 
+                    <div class="card bg-light mb-3" style="max-width:50rem; ">                      
+                            <div class="card-body" style="margin-bottom:0; padding-bottom:0; ">
+                            <p class="card-text" style="padding-bottom:0;">{{comment.content | raw}}</p>
+                            </div>
+                            <small style="margin-left:20px; margin-bottom:5px; padding-top:0; color:gray;">R&eacute;pondre</small>   
+                    </div>
               </div>           
           </div>
       </div>
-      {%  endfor %}
+       {%  endfor %}
+
+      {# {%  if app.user %} #}
+      {{ form_start(commentForm) }}
+      {{ form_row(commentForm.author, {'attr':{'placehold':"Votre nom"}}) }}
+      {{ form_row(commentForm.content, {'attr':{'placehold':"Votre commentaire"}}) }}
+      <button type="submit" class="btn btn-success">Commenter !</button>
+      {{ form_end(commentForm) }} 
+      {# {%  else %}    #}  
+      <!--  <h4>Connectez-vous pour commenter !</h4>  --> 
+      <!-- <a href=" {#{{path('security-login')}}#}" class="btn btn-primary"> Connexion</a> -->
+      {# {%  endif %} #}
+
     </section>
 {% endblock %}
