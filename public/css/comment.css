@@ -1,0 +1,26 @@
+#div-comment {
+    border: 1px solid #d6d7da;
+    padding:15px;
+    border-radius:5px; 
+    line-height: 16px;
+    color: #333333; 
+    margin-bottom:20px;
+    background:ghostwhite; 
+    width: 98%;  
+}
+#link-comment {
+    padding-top:0;
+}
+#link-comment:hover {
+font-family: arial; 
+}
+.icon-commentaire {
+    font-size:16px; 
+    padding-top:3px;
+} 
+
+
+#just-pour-le-hover:hover{
+    color: green;
+    font-family: arial;  
+}

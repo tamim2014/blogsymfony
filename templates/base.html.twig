@@ -5,10 +5,13 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />        
         <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
-        <link rel="stylesheet" href="{{ asset('css/material.icons.css') }}" />  
+        <link rel="stylesheet" href="{{ asset('css/material.icons.css') }}" /> 
+        <link rel="stylesheet" href="{{ asset('css/comment.css') }}" /> 
         
- 
-  </head>
+        <script src="{{ asset('js/jquery3.4.1.min.js') }}"></script>
+        <!--  Un lien pour commenter dans show.html.twig -->
+        <script src="{{ asset('js/comment.js') }}"></script>
+        
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
