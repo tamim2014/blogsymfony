@@ -2,24 +2,42 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-
-use Symfony\Component\HttpFoundation\Request;
-
-use App\Repository\ArticleRepository;// permet l'injection de la dependance "Repository des articles"
 use App\Entity\Article;
 use App\Entity\Comment;
+use App\Entity\Category;
+
 use App\Form\ArticleType;
 use App\Form\CommentType;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
+
+use Symfony\Component\Routing\Annotation\Route;
+
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\ArticleRepository;// permet l'injection de la dependance "Repository des articles"
 
 class BlogController extends AbstractController
 {
+        
+    /**
+     * @Route("/comment_delet/{id}", name="comment_delet")
+     */
+    public function deletComment(Comment $comment, ObjectManager $manager )
+    {          
+        $manager->remove($comment);
+        $manager->flush(); 
+     
+        // PROBLEME de redirection: Parameter "id" for route "comment_delet" must match "[^/]++" ("" given) to generate a corresponding URL
+        
+         //return $this->redirectToRoute('blog_show_admin', [ 'id'=> $article->getId() ]);
+  
+        return $this->redirect($this->generateUrl("home")); 
+    }
+
     /**
      * @Route("/blog", name="blog")
      */
@@ -94,6 +112,7 @@ class BlogController extends AbstractController
      */
     public function show(Article $article, Request $request, ObjectManager $manager)
     {    
+        // Ajouter un commentaire
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
@@ -137,34 +156,9 @@ class BlogController extends AbstractController
         $em = $this->getDoctrine()->getEntityManager();
         $em->remove($article);
         $em->flush();
-        //return $this->redirectToRoute('afficherListArticles');
-        return $this->redirect($this->generateUrl("afficherListArticles"));
+        return $this->redirectToRoute('afficherListArticles');
+        //return $this->redirect($this->generateUrl("afficherListArticles"));
     }
-
-    /**
-     * @Route("/comment_delet/{id}", name="comment_delet")
-     * @param Article $article
-     * @param Comment $comment
-     * @return
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function supprimerComment(Article $article, Comment $comment)
-    {   
-       //1.Utiliser la mthd removeComment($comment)
-       //2. Voir la fin du tuto 4/4 et s'inspirer de l'ajout d1 commentaire fait par lior
-
-       // return $this->redirect($this->generateUrl("blog_show_admin"));
-
-       return $this->render('blog/show_admin.html.twig', [
-           'article' => $article,
-           'comments' => $comments
-           ]);
-    }
-
-
-
-
-
 
 }
 
