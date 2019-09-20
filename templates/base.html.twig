@@ -29,6 +29,15 @@
                     <li class="nav-item">
                             <a class="nav-link" href="/blog/listArticles">Admin-interface</a>
                     </li>
+                    {%  if not app.user %}
+                    <li class="nav-item">
+                            <a class="nav-link" href="{{path('security_login')}}">Connexion</a>
+                    </li>
+                    {%  else %}
+                    <li class="nav-item">
+                            <a class="nav-link" href="{{path('security_logout')}}">D&eacute;connexion</a>
+                    </li>
+                    {%  endif %}
                 </ul>
                 <!-- Search engine -->
                 <form class="form-inline my-2 my-lg-0">
