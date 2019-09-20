@@ -47,16 +47,16 @@
       {%  endfor %}
       <!-- formulaire pour commenter-->
       <div id="div-comment"  >
-            {# {%  if app.user %} #}
+            {%  if app.user %} 
             {{ form_start(commentForm) }}
             {{ form_row(commentForm.author, {'attr':{'placehold':"Votre nom"}}) }}
             {{ form_row(commentForm.content, {'attr':{'placehold':"Votre commentaire"}}) }}
             <button type="submit" class="btn btn-success">Commenter !</button>
             {{ form_end(commentForm) }} 
-            {# {%  else %}    #}  
-            <!--  <h4>Connectez-vous pour commenter !</h4>  --> 
-            <!-- <a href=" {#{{path('security-login')}}#}" class="btn btn-primary"> Connexion</a> -->
-            {# {%  endif %} #}
+            {%  else %}      
+            <h4>Connectez-vous pour commenter !</h4> 
+            <a href=" {{path('security_login')}}" class="btn btn-primary"> Connexion</a>
+            {%  endif %}
      </div>
 
     </section>
