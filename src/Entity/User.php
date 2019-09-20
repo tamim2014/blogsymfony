@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -28,9 +29,14 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="4",  minMessage="Votre mot de passe de doit faire 4 caractere au minimum")
      */
     private $password;
-
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="4",  minMessage="Votre mot de passe de doit faire 4 caractere au minimum")
+     * @Assert\EqualTo(propertyPath="password" , message="Ce n'est pas le mem mot de passe")
+     */
     public $confirm_password;
 
     public function getId(): ?int
