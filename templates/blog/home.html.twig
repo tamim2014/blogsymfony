@@ -1,16 +1,27 @@
 {%  extends 'base.html.twig' %}
 
 {% block body %}
-      <h1>Bienvenue dans ce blog</h1>
 
-      {%  if age > 18 %}
-            <p>Tu es majeur</p>
-      {%  else %}
-            <p>Tu es mineur</p>
-      {%  endif %}
-
-      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora nostrum explicabo dolore beatae inventore fugiat consequuntur impedit, aliquid iusto quod repellendus laudantium accusamus laboriosam eaque consequatur nihil aliquam quaerat! Ipsa temporibus commodi possimus deleniti vitae adipisci exercitationem explicabo eaque nobis.</p>
-      <p>Maxime quos {ipsum omnis quibusdam debitis culpa quia inventore, unde alias pariatur facilis veniam repellendus blanditiis nisi expedita, magni et sunt esse qui voluptatibus voluptatem accusamus earum. Consectetur ullam commodi et ratione voluptate corporis sint, aspernatur provident est quisquam. Veritatis?</p>
+      <h1>Notion de  ROLES</h1>
+      <p>Dans le mm formulaire il faut qu'on puisse se loger en tant que simple utilisateur ou en tant qu'administrateur</p>
+      <p>Sur ce, il faut voir la doc symfony sur la notion de ROLE. Et implementer dans le branche 5.ROLES </p>
+      <p> Mais avant: il faut resoudre mes 2 probleme de redirection</p>
+       <h4> Listes des taches</h4>
+       <ul class="list-group">
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Redirection vers le m&ecirc;me  article apr&egrave;s une suppression de commentaire
+                    <span class="badge badge-primary badge-pill">2</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Redirection vers le m&ecirc;me  article apr&egrave;s une connexion
+                    <span class="badge badge-primary badge-pill">3</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    BRANCHE 5.ROLES: Connexion en tant qu'administrateur - notion de ROLES  -
+                    <span class="badge badge-primary badge-pill">1</span>
+                  </li>
+                </ul>
+      
 
 {% endblock %} 
 
